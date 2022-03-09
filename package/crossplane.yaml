@@ -4,4 +4,4 @@ metadata:
   name: provider-jet-elasticcloud
 spec:
   controller:
-    image: DOCKER_REGISTRY/provider-jet-elasticcloud-controller:VERSION
+    image: DOCKER_REGISTRY/provider-jet-elasticcloud-controller-amd64:VERSION
