@@ -1,4 +1,4 @@
-module github.com/crossplane-contrib/provider-jet-template
+module github.com/timgchile/provider-jet-elasticcloud
 
 go 1.17
 

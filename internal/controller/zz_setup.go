@@ -21,15 +21,23 @@ import (
 
 	"github.com/crossplane/terrajet/pkg/controller"
 
-	resource "github.com/crossplane-contrib/provider-jet-template/internal/controller/null/resource"
-	providerconfig "github.com/crossplane-contrib/provider-jet-template/internal/controller/providerconfig"
+	elasticsearchkeystore "github.com/timgchile/provider-jet-elasticcloud/internal/controller/deployment/elasticsearchkeystore"
+	extension "github.com/timgchile/provider-jet-elasticcloud/internal/controller/deployment/extension"
+	trafficfilter "github.com/timgchile/provider-jet-elasticcloud/internal/controller/deployment/trafficfilter"
+	trafficfilterassociation "github.com/timgchile/provider-jet-elasticcloud/internal/controller/deployment/trafficfilterassociation"
+	deployment "github.com/timgchile/provider-jet-elasticcloud/internal/controller/ec/deployment"
+	providerconfig "github.com/timgchile/provider-jet-elasticcloud/internal/controller/providerconfig"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
-		resource.Setup,
+		elasticsearchkeystore.Setup,
+		extension.Setup,
+		trafficfilter.Setup,
+		trafficfilterassociation.Setup,
+		deployment.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

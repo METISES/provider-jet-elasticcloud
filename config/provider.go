@@ -25,8 +25,8 @@ import (
 )
 
 const (
-	resourcePrefix = "template"
-	modulePath     = "github.com/crossplane-contrib/provider-jet-template"
+	resourcePrefix = "elasticcloud"
+	modulePath     = "github.com/timgchile/provider-jet-elasticcloud"
 )
 
 //go:embed schema.json
