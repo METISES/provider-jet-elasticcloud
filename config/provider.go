@@ -30,12 +30,6 @@ const (
 	modulePath     = "github.com/timgchile/provider-jet-elasticcloud"
 )
 
-// IncludedResources lists all resource patterns included in small set release.
-//var includedResources = []string{
-//	// deployments
-//	"ec_deployment$",
-//}
-
 //go:embed schema.json
 var providerSchema string
 
