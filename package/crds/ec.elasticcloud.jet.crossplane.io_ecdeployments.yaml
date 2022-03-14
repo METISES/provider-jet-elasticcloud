@@ -5,7 +5,7 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: deployments.ec.elasticcloud.jet.crossplane.io
+  name: ecdeployments.ec.elasticcloud.jet.crossplane.io
 spec:
   group: ec.elasticcloud.jet.crossplane.io
   names:
@@ -13,10 +13,10 @@ spec:
     - crossplane
     - managed
     - elasticcloudjet
-    kind: Deployment
-    listKind: DeploymentList
-    plural: deployments
-    singular: deployment
+    kind: ECDeployment
+    listKind: ECDeploymentList
+    plural: ecdeployments
+    singular: ecdeployment
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -35,7 +35,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Deployment is the Schema for the Deployments API
+        description: ECDeployment is the Schema for the ECDeployments API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: DeploymentSpec defines the desired state of Deployment
+            description: ECDeploymentSpec defines the desired state of ECDeployment
             properties:
               deletionPolicy:
                 default: Delete
@@ -704,7 +704,7 @@ spec:
             - forProvider
             type: object
           status:
-            description: DeploymentStatus defines the observed state of Deployment.
+            description: ECDeploymentStatus defines the observed state of ECDeployment.
             properties:
               atProvider:
                 properties:

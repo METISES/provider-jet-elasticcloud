@@ -25,7 +25,7 @@ import (
 	extension "github.com/timgchile/provider-jet-elasticcloud/internal/controller/deployment/extension"
 	trafficfilter "github.com/timgchile/provider-jet-elasticcloud/internal/controller/deployment/trafficfilter"
 	trafficfilterassociation "github.com/timgchile/provider-jet-elasticcloud/internal/controller/deployment/trafficfilterassociation"
-	deployment "github.com/timgchile/provider-jet-elasticcloud/internal/controller/ec/deployment"
+	ecdeployment "github.com/timgchile/provider-jet-elasticcloud/internal/controller/ec/ecdeployment"
 	providerconfig "github.com/timgchile/provider-jet-elasticcloud/internal/controller/providerconfig"
 )
 
@@ -37,7 +37,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		extension.Setup,
 		trafficfilter.Setup,
 		trafficfilterassociation.Setup,
-		deployment.Setup,
+		ecdeployment.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

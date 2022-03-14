@@ -104,13 +104,13 @@ type ConfigParameters struct {
 	UserSettingsYaml *string `json:"userSettingsYaml,omitempty" tf:"user_settings_yaml,omitempty"`
 }
 
-type DeploymentObservation struct {
+type ECDeploymentObservation struct {
 	ElasticsearchUsername *string `json:"elasticsearchUsername,omitempty" tf:"elasticsearch_username,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
-type DeploymentParameters struct {
+type ECDeploymentParameters struct {
 
 	// Optional deployment alias that affects the format of the resource URLs
 	// +kubebuilder:validation:Optional
@@ -667,51 +667,51 @@ type TrustExternalParameters struct {
 	TrustAllowlist []*string `json:"trustAllowlist,omitempty" tf:"trust_allowlist,omitempty"`
 }
 
-// DeploymentSpec defines the desired state of Deployment
-type DeploymentSpec struct {
+// ECDeploymentSpec defines the desired state of ECDeployment
+type ECDeploymentSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     DeploymentParameters `json:"forProvider"`
+	ForProvider     ECDeploymentParameters `json:"forProvider"`
 }
 
-// DeploymentStatus defines the observed state of Deployment.
-type DeploymentStatus struct {
+// ECDeploymentStatus defines the observed state of ECDeployment.
+type ECDeploymentStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        DeploymentObservation `json:"atProvider,omitempty"`
+	AtProvider        ECDeploymentObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// Deployment is the Schema for the Deployments API
+// ECDeployment is the Schema for the ECDeployments API
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,elasticcloudjet}
-type Deployment struct {
+type ECDeployment struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              DeploymentSpec   `json:"spec"`
-	Status            DeploymentStatus `json:"status,omitempty"`
+	Spec              ECDeploymentSpec   `json:"spec"`
+	Status            ECDeploymentStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// DeploymentList contains a list of Deployments
-type DeploymentList struct {
+// ECDeploymentList contains a list of ECDeployments
+type ECDeploymentList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Deployment `json:"items"`
+	Items           []ECDeployment `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	Deployment_Kind             = "Deployment"
-	Deployment_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Deployment_Kind}.String()
-	Deployment_KindAPIVersion   = Deployment_Kind + "." + CRDGroupVersion.String()
-	Deployment_GroupVersionKind = CRDGroupVersion.WithKind(Deployment_Kind)
+	ECDeployment_Kind             = "ECDeployment"
+	ECDeployment_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: ECDeployment_Kind}.String()
+	ECDeployment_KindAPIVersion   = ECDeployment_Kind + "." + CRDGroupVersion.String()
+	ECDeployment_GroupVersionKind = CRDGroupVersion.WithKind(ECDeployment_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&Deployment{}, &DeploymentList{})
+	SchemeBuilder.Register(&ECDeployment{}, &ECDeploymentList{})
 }

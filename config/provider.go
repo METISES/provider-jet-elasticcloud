@@ -19,6 +19,7 @@ package config
 import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
+	"github.com/timgchile/provider-jet-elasticcloud/config/ec"
 
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -28,6 +29,12 @@ const (
 	resourcePrefix = "elasticcloud"
 	modulePath     = "github.com/timgchile/provider-jet-elasticcloud"
 )
+
+// IncludedResources lists all resource patterns included in small set release.
+//var includedResources = []string{
+//	// deployments
+//	"ec_deployment$",
+//}
 
 //go:embed schema.json
 var providerSchema string
@@ -45,7 +52,7 @@ func GetProvider() *tjconfig.Provider {
 		tjconfig.WithDefaultResourceFn(defaultResourceFn))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
-		// add custom config functions
+		ec.Configure,
 	} {
 		configure(pc)
 	}

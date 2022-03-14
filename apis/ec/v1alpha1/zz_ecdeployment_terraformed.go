@@ -25,18 +25,18 @@ import (
 	"github.com/crossplane/terrajet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this Deployment
-func (mg *Deployment) GetTerraformResourceType() string {
+// GetTerraformResourceType returns Terraform resource type for this ECDeployment
+func (mg *ECDeployment) GetTerraformResourceType() string {
 	return "ec_deployment"
 }
 
-// GetConnectionDetailsMapping for this Deployment
-func (tr *Deployment) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this ECDeployment
+func (tr *ECDeployment) GetConnectionDetailsMapping() map[string]string {
 	return map[string]string{"apm_secret_token": "status.atProvider.apmSecretToken", "elasticsearch_password": "status.atProvider.elasticsearchPassword"}
 }
 
-// GetObservation of this Deployment
-func (tr *Deployment) GetObservation() (map[string]interface{}, error) {
+// GetObservation of this ECDeployment
+func (tr *ECDeployment) GetObservation() (map[string]interface{}, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -45,8 +45,8 @@ func (tr *Deployment) GetObservation() (map[string]interface{}, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this Deployment
-func (tr *Deployment) SetObservation(obs map[string]interface{}) error {
+// SetObservation for this ECDeployment
+func (tr *ECDeployment) SetObservation(obs map[string]interface{}) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -54,16 +54,16 @@ func (tr *Deployment) SetObservation(obs map[string]interface{}) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this Deployment
-func (tr *Deployment) GetID() string {
+// GetID returns ID of underlying Terraform resource of this ECDeployment
+func (tr *ECDeployment) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this Deployment
-func (tr *Deployment) GetParameters() (map[string]interface{}, error) {
+// GetParameters of this ECDeployment
+func (tr *ECDeployment) GetParameters() (map[string]interface{}, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -72,8 +72,8 @@ func (tr *Deployment) GetParameters() (map[string]interface{}, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this Deployment
-func (tr *Deployment) SetParameters(params map[string]interface{}) error {
+// SetParameters for this ECDeployment
+func (tr *ECDeployment) SetParameters(params map[string]interface{}) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -81,10 +81,10 @@ func (tr *Deployment) SetParameters(params map[string]interface{}) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// LateInitialize this Deployment using its observed tfState.
+// LateInitialize this ECDeployment using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *Deployment) LateInitialize(attrs []byte) (bool, error) {
-	params := &DeploymentParameters{}
+func (tr *ECDeployment) LateInitialize(attrs []byte) (bool, error) {
+	params := &ECDeploymentParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -95,6 +95,6 @@ func (tr *Deployment) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *Deployment) GetTerraformSchemaVersion() int {
+func (tr *ECDeployment) GetTerraformSchemaVersion() int {
 	return 1
 }
